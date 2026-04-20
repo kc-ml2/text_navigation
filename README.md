@@ -19,7 +19,7 @@ NavOCR detects text on the RGB frame. `textmap` lifts each detection into 3D usi
 ### Text-command navigation (text_nav_bridge)
 
 <p align="center">
-  <img src="<img width="1606" height="720" src="https://github.com/user-attachments/assets/7a0b3d72-e3d5-430b-99e8-16d84c3f8eb3" alt="text-command navigation" />
+  <img src="https://github.com/user-attachments/assets/7a0b3d72-e3d5-430b-99e8-16d84c3f8eb3" alt="text-command navigation" />
 </p>
 
 Given a text command, `text_nav_bridge` finds the closest-matching landmark from the saved map, ray-marches the robot-to-landmark line on the Nav2 costmap to pick a free-space goal, and sends it to Nav2 as a `NavigateToPose` action.
