@@ -1,4 +1,4 @@
-<img width="1606" height="720" alt="navigation" src="https://github.com/user-attachments/assets/343c7657-07c0-48ed-8cad-3dfa2e2a810d" /><img width="720" height="323" alt="demo" src="https://github.com/user-attachments/assets/03e97221-d4fb-4d46-8980-7f327d2e4d07" /># TextMap
+# TextMap
 
 Text-driven indoor navigation with OCR-based landmark SLAM for ROS 2.
 
