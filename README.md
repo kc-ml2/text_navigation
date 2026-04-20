@@ -98,7 +98,7 @@ Drive the robot manually in another terminal:
 ros2 run turtlebot3_teleop teleop_keyboard
 ```
 
-When you are done exploring, **before** pressing `Ctrl+C`, save the map and the serialized pose graph (the launch file prints the exact commands with a timestamped directory):
+When you are done exploring, **before** pressing `Ctrl+C`, save the occupancy grid (the launch file prints the exact command with a timestamped directory):
 
 ```bash
 mkdir -p ~/map/sim_run
@@ -106,11 +106,6 @@ mkdir -p ~/map/sim_run
 # Occupancy grid for AMCL (.pgm + .yaml)
 ros2 run nav2_map_server map_saver_cli -f ~/map/sim_run/map \
   --ros-args -p map_subscribe_transient_local:=true
-
-# slam_toolbox serialized map (.posegraph + .data)
-ros2 service call /slam_toolbox/serialize_map \
-  slam_toolbox/srv/SerializePoseGraph \
-  "{filename: /home/$USER/map/sim_run/map}"
 ```
 
 Press `Ctrl+C` to stop. `textmap` writes `landmarks.yaml` to `~/map/sim_run/` automatically on shutdown.
@@ -121,8 +116,6 @@ You should now have:
 ~/map/sim_run/
   map.pgm           # occupancy grid image
   map.yaml          # map_server metadata
-  map.posegraph     # slam_toolbox serialized map
-  map.data          # slam_toolbox serialized data
   landmarks.yaml    # detected text landmarks with 3D positions
 ```
 
@@ -152,16 +145,7 @@ ros2 topic echo /text_nav/status
 
 Try other landmarks from the sim world: `Bedroom`, `Bathroom`, `Office`, `Exit`, `Living Room`, `Laundry`, `Storage Room`, `Garage`, `Closet`.
 
-#### Alternative: slam_toolbox localization
-
-If you prefer the slam_toolbox pose graph (`.posegraph` + `.data`) over `map_server` + AMCL, pass `localization:=slam_toolbox` and the map prefix without extension:
-
-```bash
-ros2 launch text_nav_sim sim_navigation.launch.py \
-  localization:=slam_toolbox \
-  landmark_file:=~/map/sim_run/landmarks.yaml \
-  map_file:=~/map/sim_run/map
-```
+Pose graph localization (using the slam_toolbox `.posegraph`) is planned for a later release; AMCL on the occupancy grid is currently the only supported backend in simulation.
 
 ### Troubleshooting
 
