@@ -1,4 +1,4 @@
-<img width="720" height="323" alt="demo" src="https://github.com/user-attachments/assets/03e97221-d4fb-4d46-8980-7f327d2e4d07" /># TextMap
+<img width="1606" height="720" alt="navigation" src="https://github.com/user-attachments/assets/343c7657-07c0-48ed-8cad-3dfa2e2a810d" /><img width="720" height="323" alt="demo" src="https://github.com/user-attachments/assets/03e97221-d4fb-4d46-8980-7f327d2e4d07" /># TextMap
 
 Text-driven indoor navigation with OCR-based landmark SLAM for ROS 2.
 
@@ -11,7 +11,7 @@ The robot detects text signs (room names, directions, store fronts) with NavOCR,
 ### Landmark mapping (textmap)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4b2efade-f421-4705-906c-e9283a93f19f" width="2580" height="1440" alt="textmap landmark SLAM" />
+  <img src="https://github.com/user-attachments/assets/4b2efade-f421-4705-906c-e9283a93f19f" width="1440" height="646" alt="textmap landmark SLAM" />
 </p>
 
 NavOCR detects text on the RGB frame. `textmap` lifts each detection into 3D using the depth image, associates it across frames on a spatial grid, and publishes the result as a persistent landmark map anchored to the SLAM pose graph.
@@ -19,7 +19,7 @@ NavOCR detects text on the RGB frame. `textmap` lifts each detection into 3D usi
 ### Text-command navigation (text_nav_bridge)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7a0b3d72-e3d5-430b-99e8-16d84c3f8eb3" width="2580" height="1440" alt="text-command navigation" />
+  <img src="https://github.com/user-attachments/assets/7a0b3d72-e3d5-430b-99e8-16d84c3f8eb3" width="1606" height="720" alt="text-command navigation" />
 </p>
 
 Given a text command, `text_nav_bridge` finds the closest-matching landmark from the saved map, ray-marches the robot-to-landmark line on the Nav2 costmap to pick a free-space goal, and sends it to Nav2 as a `NavigateToPose` action.
