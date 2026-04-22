@@ -35,6 +35,8 @@ CLAUDE.md
 # Local-only files (not part of the umbrella)
 docs/
 .env.example
+docker/
+.dockerignore
 
 # Third-party packages cloned for local development (not part of this workspace)
 /src/*
