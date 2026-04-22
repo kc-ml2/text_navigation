@@ -84,21 +84,20 @@ git submodule update --init --recursive
 
 ### 3. Phase 1 — Mapping
 
-Launch the simulation with SLAM, NavOCR, and `textmap`:
+Gazebo, the mapping pipeline, and teleop live in separate packages now, so they run in separate terminals:
 
 ```bash
-ros2 launch text_nav_sim sim_mapping.launch.py
-```
+# Terminal 1 — Gazebo (house world + waffle_rgbd)
+ros2 launch text_nav_sim simulation.launch.py
 
-This brings up Gazebo (house world with text signs), `slam_toolbox` in async mapping mode, `navocr_node`, `textmap_node`, and RViz.
+# Terminal 2 — slam_toolbox + NavOCR + textmap + RViz
+ros2 launch textmap textmap_sim.launch.py
 
-Drive the robot manually in another terminal:
-
-```bash
+# Terminal 3 — teleop
 ros2 run turtlebot3_teleop teleop_keyboard
 ```
 
-When you are done exploring, **before** pressing `Ctrl+C`, save the occupancy grid (the launch file prints the exact command with a timestamped directory):
+When you are done exploring, **before** pressing `Ctrl+C`, save the occupancy grid (Terminal 2 prints the exact command with a timestamped directory):
 
 ```bash
 mkdir -p ~/map/sim_run
@@ -108,7 +107,7 @@ ros2 run nav2_map_server map_saver_cli -f ~/map/sim_run/map \
   --ros-args -p map_subscribe_transient_local:=true
 ```
 
-Press `Ctrl+C` to stop. `textmap` writes `landmarks.yaml` to `~/map/sim_run/` automatically on shutdown.
+Press `Ctrl+C` on Terminal 2 to stop. `textmap` writes `landmarks.yaml` to `~/map/sim_run/` automatically on shutdown.
 
 You should now have:
 
@@ -121,15 +120,17 @@ You should now have:
 
 ### 4. Phase 2 — Navigation
 
-Launch Nav2 with AMCL localization on the saved map and landmarks:
+Same split as Phase 1 — Gazebo in one terminal, Nav2 with AMCL in another:
 
 ```bash
-ros2 launch text_nav_sim sim_navigation.launch.py \
+# Terminal 1 — Gazebo
+ros2 launch text_nav_sim simulation.launch.py
+
+# Terminal 2 — map_server + AMCL + Nav2 + text_nav_bridge + RViz
+ros2 launch text_nav_bridge text_nav_sim.launch.py \
   landmark_file:=~/map/sim_run/landmarks.yaml \
   map_yaml_file:=~/map/sim_run/map.yaml
 ```
-
-This brings up Gazebo, `map_server + AMCL + lifecycle_manager`, the Nav2 stack, `text_nav_bridge_node`, and RViz.
 
 Send a text command — it will be matched against the landmarks captured in Phase 1 and converted into a Nav2 goal:
 
@@ -201,7 +202,7 @@ ros2 launch realsense2_camera rs_launch.py \
   unite_imu_method:=2
 
 # Terminal 2 — textmap + RTAB-Map SLAM + NavOCR
-ros2 launch textmap textmap.launch.py \
+ros2 launch textmap textmap_rtabmap.launch.py \
   landmark_save_path:=~/map/real_run/landmarks.yaml
 ```
 
@@ -226,7 +227,7 @@ ros2 bag record -o my_run \
   /camera/imu /tf /tf_static
 
 # Later: map from the bag
-ros2 launch textmap textmap.launch.py \
+ros2 launch textmap textmap_rtabmap.launch.py \
   landmark_save_path:=~/map/real_run/landmarks.yaml &
 ros2 bag play my_run --clock -r 1.0
 ```
@@ -296,7 +297,7 @@ The bag corresponds to `bag_name:=TBD` in the navigation launch and can be used 
 | NavOCR | Text detection + OCR (PaddleDetection + PaddleOCR) | [kc-ml2/NavOCR](https://github.com/kc-ml2/NavOCR/tree/add-openvino) |
 | textmap | 3D text landmark SLAM (NavOCR + depth + SLAM pose graph) | [kc-ml2/TextMap](https://github.com/kc-ml2/TextMap/tree/slamtoolbox) |
 | text_nav_bridge | Text command to Nav2 `NavigateToPose` goal | [kc-ml2/text_nav_bridge](https://github.com/kc-ml2/text_nav_bridge) |
-| text_nav_sim | Gazebo simulation (TurtleBot3 + text signs) | [kc-ml2/text_nav_sim](https://github.com/kc-ml2/text_nav_sim) |
+| text_nav_sim | Gazebo world + TurtleBot3 waffle_rgbd spawn (mapping and navigation pipelines live in textmap and text_nav_bridge) | [kc-ml2/text_nav_sim](https://github.com/kc-ml2/text_nav_sim) |
 
 ### Third-party runtime dependencies
 
