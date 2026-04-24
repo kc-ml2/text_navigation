@@ -1,50 +1,3 @@
-# TextMap Example
-
-TextMap is an open-source project for leveraging textual information across navigation pipeline, including SLAM, path planning, and goal commands, all on CPU.
-
-TextMap comprises four modules:
-
-| Package | Role |
-|---|---|
-| [NavOCR](https://github.com/kc-ml2/NavOCR) | Navigation-relevant text detection & recognition |
-| [TextMap](https://github.com/kc-ml2/TextMap) | Text landmark mapping (Adding text landmarks to the map during SLAM) |
-| [text_nav_bridge](https://github.com/kc-ml2/text_nav_bridge) | Goal setting through text commands & Interfaces for `Nav2` |
-| [text_nav_sim](https://github.com/kc-ml2/text_nav_sim) | Gazebo simulation with text signs and objects (based on `turtlebot3_simulation`) |
-
-## Demo
-
-### Text Landmark Mapping
-
-`NavOCR` detects text in RGB camera images. `TextMap` then lifts each detection into a 3D SLAM map.
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/8e0ff73e-1efb-43e4-a0dd-7cfc786dd80a" width="1080" height="704" alt="textmap landmark SLAM" />
-</p>
-
-
-### Text-command Navigation (with `Nav2`)
-Given a text command, `text_nav_bridge` finds the closest-matching landmark from the saved map, and sends it to Nav2 as a `NavigateToPose` action.
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/bbd0b279-1403-46d8-9b68-b14b00cf0c16" width="1080" height="704" alt="text-command navigation" />
-</p>
-
-## Examples
-
-This repository provides examples of how to use TextMap.
-
-| Environment | SLAM package | Model format | Dataset | Coverage | Link |
-|---|---|---|---|---|---|
-| Gazebo simulation | slam_toolbox | ONNX | real-time simulation | Text mapping + Navigation | [example](#quickstart) |
-| Gazebo simulation | slam_toolbox | OpenVINO | real-time simulation | Text mapping + Navigation | [example](examples/gazebo.slam_toolbox.openvino.guide.md) |
-| Real-world | rtabmap_ros | ONNX | Realsense D455 camera | Text mapping only* | [example](examples/realworld.rtabmap.realsense_d455.guide.md) |
-| Real-world | rtabmap_ros | ONNX | rosbag dataset | Text mapping only* | [example](examples/realworld.rtabmap.rosbag.guide.md) |
-
-*Maps from `rtabmap_ros` are not stable for 2D path planning yet. We will add navigation support for `rtabmap_ros` soon.
-
----
-
-<a id="quickstart"></a>
 ## Quick Start (Simulation)
 
 End-to-end TextMap pipeline in Gazebo: build a map with text landmarks, then drive to them by name.
@@ -75,8 +28,8 @@ source ~/.venvs/textmap/bin/activate
 pip install --upgrade pip
 pip install colcon-common-extensions
 
-# Prerequisite for NavOCR (default: onnx)
-pip install onnxruntime pyyaml opencv-python numpy
+# Prerequisite for NavOCR (openvino)
+pip install openvino pyyaml opencv-python numpy
 ```
 
 ### 2. Clone and build
@@ -122,7 +75,7 @@ ros2 run turtlebot3_teleop teleop_keyboard
 On the other terminal, launch Textmap:
 
 ```bash
-ros2 launch textmap textmap_slamtoolbox.launch.py \
+ros2 launch textmap textmap_slamtoolbox.openvino.launch.py \
   landmark_save_path:=~/map/sim_run/landmarks.yaml
 ```
 
@@ -192,8 +145,3 @@ export FLAGS_enable_pir_in_executor=0
 #### Conda `(base)` breaks `spawn_entity.py`.
 Deactivate conda before launching.
 We recommend to use `venv` for compatibility wirh ROS 2.
-
-
-## License
-
-Apache License 2.0. See `LICENSE` for the full text and per-package notices.
