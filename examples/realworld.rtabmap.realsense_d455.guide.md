@@ -22,7 +22,7 @@ source ~/.venvs/textmap/bin/activate
 pip install --upgrade pip
 
 # NavOCR runtime dependencies
-pip install openvino pyyaml opencv-python numpy
+pip install onnxruntime pyyaml opencv-python numpy
 ```
 
 ### 2. Clone and build
