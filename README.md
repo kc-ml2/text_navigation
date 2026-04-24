@@ -31,7 +31,7 @@ This repository provides examples of how to use TextMap.
 `NavOCR` detects text in RGB camera images. `TextMap` then lifts each detection into a 3D SLAM map.
 
 <p align="center">
-  <img src="[https://github.com/user-attachments/assets/b3156f7b-a9f4-4d24-8045-b2fbb6aa6327](https://github.com/user-attachments/assets/8e0ff73e-1efb-43e4-a0dd-7cfc786dd80a)" width="1720" height="772" alt="textmap landmark SLAM" />
+  <img src="[https://github.com/user-attachments/assets/b3156f7b-a9f4-4d24-8045-b2fbb6aa6327](https://github.com/user-attachments/assets/8e0ff73e-1efb-43e4-a0dd-7cfc786dd80a)" width="1080" height="704" alt="textmap landmark SLAM" />
 </p>
 
 
@@ -39,7 +39,7 @@ This repository provides examples of how to use TextMap.
 Given a text command, `text_nav_bridge` finds the closest-matching landmark from the saved map, and sends it to Nav2 as a `NavigateToPose` action.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/55a5d4d0-0b4b-486e-9050-efdd3e11c806" width="1606" height="720" alt="text-command navigation" />
+  <img src="https://github.com/user-attachments/assets/55a5d4d0-0b4b-486e-9050-efdd3e11c806" width="1080" height="704" alt="text-command navigation" />
 </p>
 
 ---
