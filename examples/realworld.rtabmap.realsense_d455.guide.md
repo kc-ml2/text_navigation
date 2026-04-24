@@ -1,16 +1,3 @@
-# TextMap Example
-
-TextMap is an open-source project for leveraging textual information across navigation pipeline, including SLAM, path planning, and goal commands, all on CPU.
-
-TextMap comprises four modules:
-
-| Package | Role | Repository |
-|---|---|---|
-| NavOCR | Navigation-relevant text detection & recognition | [kc-ml2/NavOCR](https://github.com/kc-ml2/NavOCR) |
-| TextMap | Text landmark mapping (Adding text landmarks to the map during SLAM) | [kc-ml2/TextMap](https://github.com/kc-ml2/TextMap) |
-| text_nav_bridge | Goal setting through text commands & Integration with Nav2 | [kc-ml2/text_nav_bridge](https://github.com/kc-ml2/text_nav_bridge) |
-| text_nav_sim | Gazebo simulation with text signs (based on turtlebot3_simulation) | [kc-ml2/text_nav_sim](https://github.com/kc-ml2/text_nav_sim) |
-
 ## Quick Start (Real-world, RTAB-Map + RealSense D455)
 
 Text landmark mapping with a live Intel RealSense D455: build an RTAB-Map SLAM database and save detected text landmarks.
@@ -76,20 +63,6 @@ ros2 launch realsense2_camera rs_launch.py \
   unite_imu_method:=2 \
   enable_sync:=true \
   depth_module.emitter_enabled:=0
-```
-
-Optional: record the live camera stream for later rosbag-based mapping:
-
-```bash
-ros2 bag record \
-  /camera/imu \
-  /camera/infra1/camera_info \
-  /camera/depth/camera_info \
-  /camera/infra1/image_rect_raw \
-  /camera/depth/image_rect_raw \
-  /tf /tf_static /clock \
-  --compression-mode file \
-  --compression-format zstd
 ```
 
 ### 4. SLAM & Text Landmark Mapping

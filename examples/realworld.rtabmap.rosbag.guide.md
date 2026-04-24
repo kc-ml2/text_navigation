@@ -1,16 +1,3 @@
-# TextMap Example
-
-TextMap is an open-source project for leveraging textual information across navigation pipeline, including SLAM, path planning, and goal commands, all on CPU.
-
-TextMap comprises four modules:
-
-| Package | Role | Repository |
-|---|---|---|
-| NavOCR | Navigation-relevant text detection & recognition | [kc-ml2/NavOCR](https://github.com/kc-ml2/NavOCR) |
-| TextMap | Text landmark mapping (Adding text landmarks to the map during SLAM) | [kc-ml2/TextMap](https://github.com/kc-ml2/TextMap) |
-| text_nav_bridge | Goal setting through text commands & Integration with Nav2 | [kc-ml2/text_nav_bridge](https://github.com/kc-ml2/text_nav_bridge) |
-| text_nav_sim | Gazebo simulation with text signs (based on turtlebot3_simulation) | [kc-ml2/text_nav_sim](https://github.com/kc-ml2/text_nav_sim) |
-
 ## Quick Start (Real-world, RTAB-Map + Rosbag)
 
 Text landmark mapping from a recorded stereo camera rosbag: replay the bag to build an RTAB-Map SLAM database and save detected text landmarks.
