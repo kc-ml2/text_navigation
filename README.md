@@ -171,12 +171,12 @@ map_yaml_file:=$HOME/map/sim_run/map.yaml
 <img width="1355" height="993" alt="image" src="https://github.com/user-attachments/assets/d9b4ff31-dfc1-4ebc-be97-4cbc471b3e57" />
 
 Send a text command — it will be matched against the landmarks and converted into a Nav2 goal:
-<img width="2372" height="1205" alt="image" src="https://github.com/user-attachments/assets/0e261af3-fa09-4e95-90ca-fa43a7c87278" />
 
 
 ```bash
 ros2 topic pub --once /text_nav/command std_msgs/msg/String "data: 'Kitchen'"
 ```
+<img width="2372" height="1205" alt="image" src="https://github.com/user-attachments/assets/0e261af3-fa09-4e95-90ca-fa43a7c87278" />
 
 Monitor progress:
 
