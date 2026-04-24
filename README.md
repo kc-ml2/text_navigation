@@ -6,7 +6,7 @@ TextMap comprises four modules:
 
 | Package | Role |
 |---|---|
-| [NavOCR](https://github.com/kc-ml2/NavOCR) | Navigation-relevant text detection & recognition |
+| [NavOCR](https://github.com/kc-ml2/NavOCR) | **Selective** detection & recognition of **navigation-relevant text** |
 | [TextMap](https://github.com/kc-ml2/TextMap) | Text landmark mapping (Adding text landmarks to the map during SLAM) |
 | [text_nav_bridge](https://github.com/kc-ml2/text_nav_bridge) | Goal setting through text commands & Interfaces for `Nav2` |
 | [text_nav_sim](https://github.com/kc-ml2/text_nav_sim) | Gazebo simulation with text signs and objects (based on `turtlebot3_simulation`) |
