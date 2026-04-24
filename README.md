@@ -108,7 +108,7 @@ source install/setup.bash
 Gazebo simulation environment with text signs:
 
 ```bash
-ros2 launch
+ros2 launch text_nav_sim simulation.launch.py
 ```
 
 On the other terminal, run robot teleoperation:
@@ -121,20 +121,21 @@ ros2 run turtlebot3_teleop teleop_keyboard
 On the other terminal, launch Textmap:
 
 ```bash
-ros2 launch
+ros2 launch textmap textmap_slamtoolbox.launch.py \
+  landmark_save_path:=~/map/sim_run/landmarks.yaml
 ```
 
 `NavOCR` detects text in the camera images, `slam_toolbox` builds the SLAM map, and `textmap` anchors the detected text as 3D landmarks.
 
-When you are done exploration and mapping, **before** pressing `Ctrl+C`, save the map with text landmark file:
+When you are done exploration and mapping, save the occupancy map **before** pressing `Ctrl+C` on the textmap terminal (`slam_toolbox` must still be running):
 
 ```bash
-mkdir -p ~/map/sim_run
-
 # Occupancy grid for AMCL (.pgm + .yaml)
 ros2 run nav2_map_server map_saver_cli -f ~/map/sim_run/map \
   --ros-args -p map_subscribe_transient_local:=true
 ```
+
+Then `Ctrl+C` the textmap terminal. `textmap` auto-exports `landmarks.yaml` on shutdown to the path given by `landmark_save_path`.
 
 You should now have:
 
@@ -150,11 +151,9 @@ You should now have:
 Turn off text landmark mapping, and launch Nav2, amcl, and text_nav_bridge:
 
 ```bash
-ros2 launch 
-
-# ros2 launch text_nav_sim sim_navigation.launch.py \
-#   landmark_file:=~/map/sim_run/landmarks.yaml \
-#   map_yaml_file:=~/map/sim_run/map.yaml
+ros2 launch text_nav_bridge text_nav_sim.launch.py \
+landmark_file:=$HOME/map/sim_run/landmarks.yaml \
+map_yaml_file:=$HOME/map/sim_run/map.yaml
 ```
 
 Send a text command — it will be matched against the landmarks and converted into a Nav2 goal:
