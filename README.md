@@ -17,9 +17,22 @@ TextMap comprises four modules:
 
 `NavOCR` detects text in RGB camera images. `TextMap` then lifts each detection into a 3D SLAM map.
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/8e0ff73e-1efb-43e4-a0dd-7cfc786dd80a" width="1080" height="704" alt="textmap landmark SLAM" />
-</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/8e0ff73e-1efb-43e4-a0dd-7cfc786dd80a" width="1080" height="704" alt="Simulation mapping" />
+      <br />
+      <sub><b>Simulation mapping</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/c678b279-1be8-4550-bc5e-162b2403dded" width="1080" height="675" alt="Real-world mapping" />
+      <br />
+      <sub><b>Real-world mapping</b></sub>
+    </td>
+  </tr>
+</table>
 
 
 ### Text-command Navigation (with `Nav2`)
